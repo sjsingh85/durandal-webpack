@@ -29,35 +29,43 @@ module.exports = {
 
 	// Custom plugins
 	plugins: [
-		new webpack.DefinePlugin(GLOBALS),
-		new webpack.optimize.OccurenceOrderPlugin()
+		new webpack.DefinePlugin(GLOBALS)
 	]
 	.concat(DEBUG ? [] : [
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin(),
-		new webpack.optimize.AggressiveMergingPlugin()
+		new WebpackNotifierPlugin({ alwaysNotify: true }),
+		new webpack.optimize.UglifyJsPlugin({
+                sourceMap: true,
+                compress: false
+            })
 	]),
 
 	module: {
-		loaders: [
-			{ test: /\.html$/, loader: 'html' },
-			{ test: /\.json$/, loader: 'json' }
+		rules: [
+			{ test: /\.html$/, loader: 'html-loader' },
+			{ test: /\.json$/, loader: 'json-loader' }
 		]
 	},
 
 	resolve: {
-		extensions: ['', '.js', '.jsx', '.json'],
+		extensions: ['.js', '.jsx', '.json'],
 
-		modulesDirectories: [
+		modules: [
 			'node_modules',
 			'app'
 		],
 
-		root: path.join(__dirname, 'app'),
-
 		alias: {
-			durandal: 'durandal/js',
-			plugins: 'durandal/js/plugins'
+			'durandal/app': 'durandal/js/app',
+      'durandal/activator': 'durandal/js/activator',
+      'durandal/binder': 'durandal/js/binder',
+      'durandal/composition': 'durandal/js/composition',
+      'durandal/events': 'durandal/js/events',
+			//changed Durandal to use overriden file for system.js - which fixes issue with webpack 2 throwing error on unknown required dependencies
+			'durandal/system': 'overrides/system',
+			'durandal/viewEngine': 'durandal/js/viewEngine',
+      'durandal/viewLocator': 'durandal/js/viewLocator',
+			'plugins': 'durandal/js/plugins',
+			'transitions/entrance': 'durandal/js/transitions/entrance',
 		}
 	},
 
@@ -70,7 +78,6 @@ module.exports = {
 		hot: false,
 		inline: true,
 		historyApiFallback: true,
-		stats: { colors: true },
-		progress: true
+		stats: { colors: true }
 	}
 };

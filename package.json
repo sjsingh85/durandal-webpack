@@ -4,14 +4,24 @@
   "description": "Durandal + Webpack = Awesome",
   "main": "index.js",
   "dependencies": {
-    "durandal": "^2.1.0",
+    "durandal": "^2.2.0",
     "jquery": "^2.1.4",
-    "knockout": "^3.3.0"
+    "knockout": "^3.4.0"
   },
   "devDependencies": {
-    "html-loader": "^0.3.0",
-    "webpack-dev-server": "^1.15.0",
-    "webpack": "^1.10.5"
+    "html-loader": "^0.5.1",
+    "imports-loader": "^0.7.1",
+    "path": "^0.12.7",
+    "webpack-dev-server": "^2.4.2",
+    "exports-loader": "^0.6.4",
+    "expose-loader": "^0.7.3",
+    "file-loader": "^1.1.5",
+    "rimraf": "^2.6.2",
+    "script-loader": "^0.7.2",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.7.1",
+    "webpack-notifier": "^1.5.0"
   },
   "scripts": {
     "dev": "webpack-dev-server",
